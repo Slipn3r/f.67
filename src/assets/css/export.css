@@ -1,0 +1,19 @@
+.actions,
+.export {
+  width: 60vw;
+  margin: 0 auto 2rem;
+}
+.export pre {
+	max-height: 60vh;
+	overflow: scroll;
+  padding: 1rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.05);
+  color: rgba(0, 0, 0, 0.8);
+}
+.export code {
+  display: block;
+  white-space: pre-wrap;
+}

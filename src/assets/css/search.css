@@ -1,0 +1,28 @@
+.search {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    background-color: rgba(0,0,0,.1);
+    padding: .5rem;
+    border-radius: 5px;
+    margin: 1rem 0
+}
+
+.search input {
+    padding: .25rem;
+    border: 0;
+    border-radius: 3px;
+    margin-right: .2rem;
+    font: inherit;
+    font-size: .8rem;
+    width: 20%;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1
+}
+
+.find {
+    background: rgba(255,213,0,.5)
+}

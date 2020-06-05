@@ -1,0 +1,21 @@
+.editor {
+    position: relative
+}
+
+.editor__floating-menu {
+    position: absolute;
+    left: 1em;
+    z-index: 1;
+    margin-top: -.25rem;
+    visibility: hidden;
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.75);
+    border-left: 2px solid #2c3e50;
+    -webkit-transition: opacity .2s,visibility .2s;
+    transition: opacity .2s,visibility .2s
+}
+
+.editor__floating-menu.is-active {
+    opacity: 1;
+    visibility: visible
+}
