@@ -1,6 +1,6 @@
 <template>
 	<div id="footer">
-		<span>untitled | &copy; f66, 2020</span>
+		<span>F.67 | &copy; 2020</span>
 	</div>
 </template>
 

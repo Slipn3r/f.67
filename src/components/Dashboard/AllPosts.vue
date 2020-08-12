@@ -35,7 +35,7 @@
 			class="post-card"
 		>
 			<button @click="deletePost(post.id)"><i class="fa fa-trash"></i></button>
-			<a v-bind:href="'/post/' + post.link" target="blank">
+			<a v-bind:href="'/post/' + post.link">
 				<h3>{{post.title ? post.title : "No title! How is that possible?"}}</h3>
 			</a>
 			<div class="post-info">
@@ -176,6 +176,10 @@
 		border: 1px solid rgba(0, 0, 0, 0.125);
 		border-radius: 3px;
 		cursor: pointer;
+	}
+
+	.post-card > .post-info {
+		position: initial;
 	}
 
 	.post-card.col-3 {

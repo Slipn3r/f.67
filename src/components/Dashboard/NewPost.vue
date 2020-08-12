@@ -21,6 +21,6 @@
 	#container .editor__content {
 		border: 1px solid rgba(0, 0, 0, 0.125);
 		border-top: none;
-		height: 50vh;
+		height: 60vh;
 	}
 </style>

@@ -6,16 +6,14 @@
 				v-for="post in filteredList"
 				v-bind:key="post.id"
 				class="post-card">
-				<div class="cover-image">
-					<img v-bind:src="post.cover_image"/>
-				</div>
-				<a v-bind:href="'/post/' + post.link">
-					<h3>{{post.title ? post.title : "No title! How is that possible?"}}</h3>
-				</a>
+				<div class="cover-image" v-bind:style="{ backgroundImage: post.bg }"></div>
 				<div class="post-info">
+					<a v-bind:href="'/post/' + post.link">
+						<h3>{{post.title ? post.title : "No title! How is that possible?"}}</h3>
+					</a>
 					<span>{{post.author ? post.author : "Unknown author"}}, {{new Date(post.timestamp*60000).toLocaleString().slice(0, -3)}}</span>
-					<i class="fa fa-eye"></i>{{post.views > 1000 ? post.views/1000 + "k" : post.views ? post.views : 0}}
-					<i class="fa fa-comments"></i>{{post.comments ? post.comments : 0}}
+					<i class="fa fa-fw fa-eye"></i>{{post.views > 1000 ? Math.round(post.views/1000) + "k" : post.views ? post.views : 0}}
+					<i class="fa fa-fw fa-comments"></i>{{post.comments ? post.comments : 0}}
 				</div>
 			</div>
 		</div>
@@ -58,6 +56,9 @@
 					this.posts = []
 					this.posts = response.data.rows
 					this.posts.reverse()
+					this.posts.forEach(e => {
+						e.bg = 'url(' + e.cover_image + ')'
+					})
 				})
 			}
 		},
@@ -70,6 +71,7 @@
 	#home {
 		position: relative;
 		padding: 70px 0 100px 0;
+		min-height: 100vh;
 		height: 100%;
 		overflow: hidden;
 	}

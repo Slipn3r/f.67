@@ -1,7 +1,8 @@
 <template>
 	<div class="hello">
-		<h1>Welcome to comments page</h1>
-		<h2>{{msg}}</h2>
+		<div class="borderAnimation post-card">
+			<p>Feature in development</p>
+		</div>
 	</div>
 </template>
 
@@ -9,7 +10,6 @@
 	export default {
 		data () {
 			return {
-				msg: 'Feature in development'
 			}
 		}
 	}

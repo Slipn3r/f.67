@@ -2,8 +2,9 @@
 	<div id="post-container">
 		<Navbar enableSearch='false'></Navbar>
 		<div id="post">
-			<editor v-bind:showEditable="isAuthorized"></editor>
+			<editor v-bind:showEdit="isAuthorized"></editor>
 		</div>
+		<div id="remark42"></div>
 		<Footer></Footer>
 	</div>
 </template>

@@ -6,22 +6,22 @@
 			v-bind:key="post.id"
 			class="post-card"
 		>
-				<div class="cover-image">
-					<img v-bind:src="post.cover_image"/>
-				</div>
+				<div class="cover-image" v-bind:style="{ backgroundImage: post.bg }"></div>
 				<div class="post-info">
-					<a v-bind:href="'/post/' + post.link" target="blank">
+					<a v-bind:href="'/post/' + post.link">
 						<h3>{{post.title ? post.title : "No title! How is that possible?"}}</h3>
 					</a>
-					<span>{{post.author ? post.author : "Unknown author"}}, {{new Date(post.timestamp*60000).toLocaleDateString()}}</span>
+					<span>{{post.author ? post.author : "Unknown author"}}, {{new Date(post.timestamp*60000).toLocaleString().slice(0, -3)}}</span>
 					<i class="fa fa-fw fa-eye"></i>{{post.views > 1000 ? Math.round(post.views/1000) + "k" : post.views ? post.views : 0}}
 					<i class="fa fa-fw fa-comments"></i>{{post.comments ? post.comments : 0}}
 				</div>
 		</div>
 		<button v-on:click="$emit('change-view', 2)">All posts</button>
 
-		<h2>Recent comments</h2>
-		<p>Feature in development</p>
+		<!--<h2>Recent comments</h2>
+		<div class="borderAnimation post-card">
+			<p>Feature in development</p>
+		</div>-->
 	</div>
 </template>
 
@@ -42,6 +42,9 @@
 				this.$http.get('http://' + this.$domain + ':3000/v1/getposts')
 				.then(response => {
 					this.posts = response.data.rows
+					this.posts.forEach(e => {
+						e.bg = 'url(' + e.cover_image + ')'
+					})
 				})
 			}
 		},
@@ -56,8 +59,9 @@
 		height: 20em;
 	}
 	.post-card {
+		position: relative;
 		display: inline-block;
-    vertical-align: text-top;
+		vertical-align: text-top;
 		padding: 1em;
 		margin: 0.5em;
 		background: #fff;
@@ -65,23 +69,19 @@
 		border-radius: 5px;
 	}
 	.post-card > .cover-image {
-		height: 60%;
+		height: 100%;
 		position: relative;
 		overflow: hidden;
 		margin-bottom: 0.75em;
-    border-radius: 3px;
-	}
-	.post-card > .cover-image > img {
-		height: 100%;
-    position: absolute;
-    top: -9999px;
-    bottom: -9999px;
-    left: -9999px;
-    right: -9999px;
-    margin: auto;
+		border-radius: 3px;
+		background-size: cover;
 	}
 	.post-card > .post-info {
-		height: 33%;
+		width: calc(100% - 2em);
+		position: absolute;
+		bottom: 1em;
+		padding-top: 1em;
+		background: #fff;
 	}
 	.post-card > .post-info > h3 {
 		font-size: 1.4em;
@@ -91,9 +91,6 @@
 		display: block;
 		font-size: 14px;
 		margin-bottom: 0.3em;
-	}
-	.post-card > .post-info {
-		font-size: 14px;
 	}
 	.post-card > .post-info > i {
 		margin-right: 4px;

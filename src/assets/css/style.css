@@ -204,12 +204,24 @@ h3 {
 	cursor: col-resize;
 }
 .menubar {
+	height: 46px;
 	background: #fff;
 	border: 1px solid rgba(0, 0, 0, 0.125);
 	border-radius: 3px 3px 0 0;
 	padding: 0.7em 1em;
 	-webkit-transition: visibility 0.2s 0.4s, opacity 0.2s 0.4s;
 	transition: visibility 0.2s 0.4s, opacity 0.2s 0.4s;
+}
+#post-container .menubar {
+	height: 40px;
+	position: fixed;
+	top: 5px;
+	left: 50%;
+    transform: translateX(-50%);
+	padding: 9px;
+	border: 1px solid #d9dadb;
+	border-radius: 3px;
+	z-index: 12;
 }
 .menubar.is-hidden {
 	visibility: hidden;
@@ -336,4 +348,16 @@ h3 {
 	border: 1px solid rgba(0, 0, 0, 0.125);
 	border-radius: 3px;
 	z-index: 1;
+}
+.borderAnimation {
+	background-image: repeating-linear-gradient(38deg, #ff7b00, #ff7b00 13px, transparent 13px, transparent 25px, #ff7b00 25px), repeating-linear-gradient(128deg, #ff7b00, #ff7b00 13px, transparent 13px, transparent 25px, #ff7b00 25px), repeating-linear-gradient(218deg, #ff7b00, #ff7b00 13px, transparent 13px, transparent 25px, #ff7b00 25px), repeating-linear-gradient(308deg, #ff7b00, #ff7b00 13px, transparent 13px, transparent 25px, #ff7b00 25px);
+	background-size: 4px calc(100% + 31.73px), calc(100% + 31.73px) 4px, 4px calc(100% + 31.73px) , calc(100% + 31.73px) 4px;
+	background-position: 0 0, 0 0, 100% 0, 0 100%;
+	background-repeat: no-repeat;
+	animation: borderAnimation 0.9s infinite linear;
+}
+	
+@keyframes borderAnimation {
+	from { background-position: 0 0, -31.73px 0, 100% -31.73px, 0 100%; }
+	to { background-position: 0 -31.73px, 0 0, 100% 0, -31.73px 100%; }
 }

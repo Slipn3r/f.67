@@ -1,11 +1,16 @@
 <template>
 	<div class="editor">
-		<div v-if="showEditable" class="checkbox">
-			<input type="checkbox" id="editable" v-model="editable" />
-			<label for="editable">editable</label>
+		<div v-if="showEdit" class="toggleEdit">
+			<input type="checkbox" id="edit" v-model="editable" />
+			<label for="edit"><i class="fa fa-fw fa-pencil"></i> Edit</label>
 		</div>
 
-		<img v-if="post.cover_image" v-bind:src="post.cover_image"/>
+		<img class="banner" v-if="post.cover_image" v-bind:src="post.cover_image"/>
+
+		<label for="cover-image" v-bind:class="{disabled: !editable}">Cover image (url)</label>
+		<div v-bind:class="{disabled: !editable}">
+			<input id="cover-image" type="text" v-model="coverImage" required>
+		</div>
 
 		<editor-floating-menu :editor="editor" v-slot="{ commands, isActive, menu }" v-bind:class="{disabled: !editable}">
 			<div
@@ -187,14 +192,6 @@
 					{...}
 				</button>
 
-				<!--<button
-					class="menubar__button"
-					:class="{ 'is-active': isActive.code() }"
-					@click="paste('image')"
-				>
-					<i class="fa fa-fw fa-image"></i>
-				</button>-->
-
 				<button
 					class="menubar__button"
 					@click="commands.createTable({rowsCount: 3, colsCount: 3, withHeaderRow: false })"
@@ -262,18 +259,21 @@
 					<i class="fa fa-fw fa-rotate-right"></i>
 				</button>
 
+				<button
+					id="menubar__save"
+					class="menubar__button"
+					@click="handleSubmit"
+				>
+					<i class="fa fa-fw fa-floppy-o"></i>  Save
+				</button>
+
 			</div>
 		</editor-menu-bar>
 
 		<editor-content :editor="editor" />
 
-		<label for="cover-image" v-bind:class="{disabled: !editable}">Cover image (url)</label>
 		<div v-bind:class="{disabled: !editable}">
-			<input id="cover-image" type="text" v-model="coverImage" required>
-		</div>
-
-		<div v-bind:class="{disabled: !editable}">
-			<button type="submit" @click="handleSubmit">
+			<button type="submit" @click="handleSubmit" id="saveButton">
 				<i class="fa fa-fw fa-floppy-o"></i>Save
 			</button>
 		</div>
@@ -331,7 +331,7 @@
 			EditorFloatingMenu,
 		},
 		props: {
-			showEditable: Boolean,
+			showEdit: Boolean,
 		},
 		data(){
 			return {
@@ -417,14 +417,20 @@
 				}
 			},
 			handleSubmit(e) {
-				if(this.json.content[0].content[0].text){
-					if(this.link) {
-						this.updatePost(e)
+				e.preventDefault()
+				if(this.json) {
+					this.editable = false
+					if(this.json.content[0].content[0].text) {
+						if(this.link) {
+							this.updatePost()
+						}else {
+							this.saveNewPost()
+						}
 					}else {
-						this.saveNewPost(e)
+						alert('Please give your post some title')
 					}
 				}else {
-					alert('Please give your post some title')
+					alert('No changes to save')
 				}
 			},
 			getPostByLink(){
@@ -448,8 +454,7 @@
 					})
 				}
 			},
-			saveNewPost(e) {
-				e.preventDefault()
+			saveNewPost() {
 				this.post.title = this.json.content[0].content[0].text
 				this.post.timestamp = Math.round(Date.now()/60000)
 				let date = new Date(this.post.timestamp*60000)
@@ -478,8 +483,7 @@
 					}
 				})
 			},
-			updatePost(e) {
-				e.preventDefault()
+			updatePost() {
 				this.post.title = this.json.content[0].content[0].text
 				let date = new Date(this.post.timestamp*60000)
 				this.post.link = encodeURI(date.getFullYear().toString() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '-' + this.post.title.replace(/[\s\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007E]+/g, '-') + '-' + date.getMinutes())
@@ -504,10 +508,15 @@
 				this.editor.setOptions({
 					editable: this.editable,
 				})
-			},
+				if(this.editable) {
+					document.querySelector('html').style.background = "repeating-linear-gradient(45deg, #e9ecef, #e9ecef 10px, #f8f9fa 10px, #f8f9fa 20px)"
+				}else {
+					document.querySelector('html').style.background = "#fff"
+				}
+			}
 		},
 		mounted() {
-			if (!document.querySelector('editor__content')) {
+			if (!document.querySelector('.editor__content')) {
 				if(document.querySelector('div.menubar')) {
 					document.querySelector('div.menubar').nextElementSibling.classList.add('editor__content')
 				}
@@ -525,14 +534,14 @@
 	.editor .is-empty:nth-child(2)::before {
 		content: attr(data-empty-text);
 		float: left;
-		color: #aaa;
+		color: #a5aeb7;
 		pointer-events: none;
 		height: 0;
 		font-style: italic;
 	}
-	.editor img {
-		max-width: 100%;
-    margin-left: 1em;
+	.editor .banner {
+		max-width: calc(70vw - 3em);
+		margin: 1em;
 	}
 	.editor button:not(.menubar__button), .editor input[type=text], .editor select, .editor select > option {
 		-webkit-appearance: none;
@@ -557,6 +566,38 @@
 		width: 33%;
 		margin-bottom: 1em;
 		cursor: text;
+	}
+
+	.toggleEdit {
+		position: fixed;
+		top: 1em;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 11;
+	}
+
+	.toggleEdit input {
+		display: none;
+	}
+
+	.toggleEdit label {
+		cursor: pointer;
+	}
+
+	#cover-image {
+		height: 2em;
+		padding: 1em;
+	}
+
+	#menubar__save {
+		display: none;
+	}
+	#post-container #menubar__save {
+		display: inline-flex;
+		padding-left: 1.5em;
+		border-left: 1px solid #2c3e50;
+		border-radius: 0;
+		background: transparent !important;
 	}
 
 	.disabled {

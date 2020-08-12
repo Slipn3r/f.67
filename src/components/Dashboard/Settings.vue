@@ -1,7 +1,9 @@
 <template>
 	<div class="hello">
 		<h1>Welcome to settings page</h1>
-		<h2>{{msg}}</h2>
+		<div class="borderAnimation post-card">
+			<p>Nothing to set up for now :)</p>
+		</div>
 	</div>
 </template>
 
@@ -9,7 +11,6 @@
 	export default {
 		data () {
 			return {
-				msg: 'Feature in development'
 			}
 		}
 	}

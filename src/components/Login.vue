@@ -1,15 +1,13 @@
 <template>
 	<div id="login-form">
-		<h1>Login</h1>
 		<form>
-			<label for="email" >E-Mail Address</label>
+			<h1>Login</h1>
 			<div>
-				<input id="email" type="email" v-model="email" required autofocus>
+				<input id="email" type="email" v-model="email" placeholder="E-mail" required autofocus>
 			</div>
 			<div>
-				<label for="password" >Password</label>
 				<div>
-					<input id="password" type="password" v-model="password" required>
+					<input id="password" type="password" v-model="password" placeholder="Password" required>
 				</div>
 			</div>
 			<div>
@@ -70,14 +68,15 @@
 
 <style scoped>
 	#login-form {
-		width: 400px;
-		margin: auto;
-		margin-top: 30vh;
+		width: 300px;
+		margin: 30vh auto auto auto;
+		text-align: center;
 	}
 	button, input, select, select > option {
-		height: 2em;
+		height: 2.5em;
 		width: 100%;
 		margin-bottom: 1em;
+		padding: 0 1em;
 		-webkit-appearance: none;
 		outline: none;
 		border: 1px solid rgba(0, 0, 0, 0.125);

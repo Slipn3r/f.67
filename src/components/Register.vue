@@ -1,28 +1,24 @@
 <template>
-	<div>
-		<h4>Register</h4>
+	<div id="signup-form">
 		<form>
-			<label for="name">Name</label>
+			<h1>Register</h1>
 			<div>
-				<input id="name" type="text" v-model="name" required autofocus>
+				<input id="name" type="text" v-model="name" placeholder="Name" required autofocus>
 			</div>
 
-			<label for="email" >E-Mail Address</label>
 			<div>
-				<input id="email" type="email" v-model="email" required>
+				<input id="email" type="email" v-model="email" placeholder="E-Mail" required>
 			</div>
 
-			<label for="password">Password</label>
 			<div>
-				<input id="password" type="password" v-model="password" required>
+				<input id="password" type="password" v-model="password" placeholder="Password" required>
 			</div>
 
-			<label for="password-confirm">Confirm Password</label>
 			<div>
-				<input id="password-confirm" type="password" v-model="password_confirmation" required>
+				<input id="password-confirm" type="password" v-model="password_confirmation" placeholder="Confirm password" required>
 			</div>
 
-			<label for="password-confirm">Is this an administrator account?</label>
+			<label for="password-confirm">Admin</label>
 			<div>
 				<select v-model="is_admin">
 					<option value=1>Yes</option>
@@ -87,3 +83,28 @@
 		}
 	}
 </script>
+
+<style scoped>
+	#signup-form {
+		width: 300px;
+		margin: 30vh auto auto auto;
+		text-align: center;
+	}
+	button, input, select, select > option {
+		height: 2.5em;
+		width: 100%;
+		margin-bottom: 1em;
+		padding: 0 1em;
+		-webkit-appearance: none;
+		outline: none;
+		border: 1px solid rgba(0, 0, 0, 0.125);
+		border-radius: 3px;
+		background: #fff;
+		color: #2c3e50;
+	}
+	button {
+		height: 3em;
+		width: 33%;
+		cursor: pointer;
+	}
+</style>

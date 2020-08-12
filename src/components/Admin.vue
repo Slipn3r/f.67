@@ -19,7 +19,7 @@
 				<li @click="statusActive = !statusActive"><i class="fa fa-fw fa-server"></i>Status <span class="colorIcon" v-bind:class="status.all"></span></li>
 				<li class="status" v-bind:class="{active: statusActive}">
 					<p>{{$domain}}: <span v-bind:class="status.domain">{{status.domain}}</span></p>
-					<p>Backend: <span v-bind:class="status.backend">{{status.backend}}</span></p>
+					<p>DB: <span v-bind:class="status.backend">{{status.backend}}</span></p>
 					<button @click="statusActive = false"><i class="fa fa-fw fa-times"></i></button>
 				</li>
 			</ul>
@@ -40,7 +40,7 @@
 	import Overview from './Dashboard/Overview'
 	import NewPost from './Dashboard/NewPost'
 	import AllPosts from './Dashboard/AllPosts'
-	import Comments from './Dashboard/Comments'
+	//import Comments from './Dashboard/Comments'
 	import Users from './Dashboard/Users'
 	import Settings from './Dashboard/Settings'
 
@@ -60,11 +60,11 @@
 			icon: "fa-list",
 			component: AllPosts
 		},
-		{
+		/*{
 			name: "Comments",
 			icon: "fa-comments",
 			component: Comments
-		},
+		},*/
 		{
 			name: "Users",
 			icon: "fa-user",
@@ -317,7 +317,7 @@
 		border: 1px solid rgba(0, 0, 0, 0.25);
 		border-radius: 3px;
 		cursor: initial;
-		z-index: 5;
+		z-index: 15;
 	}
 	.menu > li.status.active {
 		display: block;
